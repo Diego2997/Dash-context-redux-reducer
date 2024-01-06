@@ -1,28 +1,43 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import AuthLayout from '../layouts/AuthLayout'
-import { GeneralLayout } from '../layouts/GeneralLayout'
-import { PublicRoutes } from './PublicRoutes'
-import { PrivateRoutes } from './PrivateRoutes'
-
+import React, { useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import AuthLayout from "../layouts/AuthLayout";
+import { GeneralLayout } from "../layouts/GeneralLayout";
+import { PublicRoutes } from "./PublicRoutes";
+import { PrivateRoutes } from "./PrivateRoutes";
+import { useDispatch, useSelector } from "react-redux";
+import { checkToken } from "../store/slices/auth/authThunks";
 
 export const AppRoutes = () => {
+    const { isLogged, isLoading } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
 
-  const isLogged = false;
+    useEffect(() => {
+        dispatch(checkToken());
+    }, []);
 
-  return (
-    <Routes>
-        <Route path='/auth/*' element={
-          <PublicRoutes isLogged={isLogged}>
-              <AuthLayout />
-          </PublicRoutes>
-        }/>
+    if (isLoading) {
+        return <h1>Iniciando...</h1>;
+    }
 
-        <Route path='/*' element={
-            <PrivateRoutes isLogged={isLogged}>
-                <GeneralLayout />
-            </PrivateRoutes>
-        } />
-    </Routes>
-  )
-}
+    return (
+        <Routes>
+            <Route
+                path="/auth/*"
+                element={
+                    <PublicRoutes isLogged={isLogged}>
+                        <AuthLayout />
+                    </PublicRoutes>
+                }
+            />
+
+            <Route
+                path="/*"
+                element={
+                    <PrivateRoutes isLogged={isLogged}>
+                        <GeneralLayout />
+                    </PrivateRoutes>
+                }
+            />
+        </Routes>
+    );
+};
