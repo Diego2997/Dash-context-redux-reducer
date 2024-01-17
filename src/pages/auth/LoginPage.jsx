@@ -18,6 +18,7 @@ export const LoginPage = () => {
     const dispatch = useDispatch();
 
     const { formState, handleChange } = useForm();
+    const title = "DashDummy";
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -31,7 +32,7 @@ export const LoginPage = () => {
                 <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-                Dummy Dash
+                {title}
             </Typography>
             <Box
                 component="form"

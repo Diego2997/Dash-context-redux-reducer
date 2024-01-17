@@ -11,13 +11,13 @@ export const AppRoutes = () => {
     const { isLogged, isLoading } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(checkToken());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(checkToken());
+    // }, []);
 
-    if (isLoading) {
-        return <h1>Iniciando...</h1>;
-    }
+    // if (isLoading) {
+    //     return <h1>Iniciando...</h1>;
+    // }
 
     return (
         <Routes>
