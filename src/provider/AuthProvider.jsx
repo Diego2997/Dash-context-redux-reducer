@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import { AuthContext } from "../context/authContext";
 import { AuthReducer } from "../reducers/AuthReducer";
 import { axiosInstance } from "../config/axiosInstance";
+import { types } from "../types/types";
 
 const initialState = {
     isLoading: true,
@@ -22,7 +23,7 @@ export default function AuthProvider({ children }) {
         console.log(username, password);
 
         dispatch({
-            type: "LOGIN",
+            type: types.auth.login,
             payload: {
                 user: data,
             },
